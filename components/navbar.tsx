@@ -1,16 +1,24 @@
 import { signIn } from "next-auth/react";
-export default function Navbar(){
-    return <div className="flex justify-between p-3 mb-16">
-        <div>
-            <p className="text-3xl font-bold text-gray-900">Resume Match</p>
-        </div>
-        <div className="flex pt-1"> 
-            <p className="px-3 text-lg text-gray-500 hover:text-black cursor-pointer">How It works</p>
-            <p className="px-3 text-lg text-gray-500  hover:text-black cursor-pointer">Features</p>
-            <p className="px-3 text-lg text-gray-500  hover:text-black cursor-pointer">Pricing</p>
-        </div>
-        <div>
-            <button className="bg-black text-white rounded px-6 py-2 hover:bg-gray-800 cursor-pointer" onClick={() => signIn()}>Get Started</button>
-        </div>
+
+export default function Navbar() {
+  return (
+    <div className="flex flex-col md:flex-row justify-between items-center p-4 md:p-6 mb-12 gap-y-4 md:gap-y-0">
+      <div>
+        <p className="text-2xl md:text-3xl font-bold text-gray-900">Resume Match</p>
+      </div>
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+        <p className="text-lg text-gray-500 hover:text-black cursor-pointer">How It works</p>
+        <p className="text-lg text-gray-500 hover:text-black cursor-pointer">Features</p>
+        <p className="text-lg text-gray-500 hover:text-black cursor-pointer">Pricing</p>
+      </div>
+      <div>
+        <button
+          className="bg-black text-white rounded px-6 py-2 hover:bg-gray-800 cursor-pointer"
+          onClick={() => signIn()}
+        >
+          Get Started
+        </button>
+      </div>
     </div>
+  );
 }

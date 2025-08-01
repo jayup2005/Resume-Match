@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type Analysis = {
-  name:string
+  name: string;
   match_percentage: number;
   matched_keywords: string[];
   missing_keywords: string[];
@@ -19,23 +19,19 @@ export default function AnalysisPage() {
 
   useEffect(() => {
     const raw = localStorage.getItem("analysis");
-
     if (!raw) return router.push("/analyze");
-
     try {
       const parsed = JSON.parse(raw);
       setData({
-        name:parsed.name_of_person ?? '',
+        name: parsed.name_of_person ?? "",
         match_percentage: parsed.match_percentage ?? 0,
         matched_keywords: parsed.matched_keywords ?? [],
         missing_keywords: parsed.missing_keywords ?? [],
         suggestions: parsed.suggestions ?? [],
         overall_feedback: parsed.overall_feedback ?? "No feedback available.",
       });
-      
       setTimeout(() => setAnimate(true), 100);
     } catch {
-      console.error("Invalid analysis data");
       router.push("/analyze");
     }
   }, [router]);
@@ -45,23 +41,22 @@ export default function AnalysisPage() {
   const radius = 16;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - data.match_percentage / 100);
-  console.log(data)
+
   return (
-    <div className="min-h-screen bg-[#f9fafb] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#f9fafb] flex items-center justify-center px-4 py-8">
       <div
-        className={`max-w-4xl w-full bg-white shadow-md rounded-xl p-8 transition-all duration-700 ease-out ${
+        className={`w-full max-w-6xl bg-white shadow-md rounded-xl p-6 md:p-10 transition-all duration-700 ease-out ${
           animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <header className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center">🔍 {data.name} — Resume Match Analysis</h2>
-          <p className="text-gray-500 text-sm text-center">Personalized insights based on your uploaded resume and job description</p>
+        <header className="mb-6 text-center">
+          <h2 className="text-2xl font-semibold text-gray-800">{data.name} — Resume Match Analysis</h2>
+          <p className="text-gray-500 text-sm mt-1">Personalized insights based on your uploaded resume and job description</p>
         </header>
 
-        <section className="flex flex-col md:flex-row gap-8">
-    
-          <div className="flex flex-col items-center md:w-1/3">
-            <div className="relative w-24 h-24 mb-2">
+        <section className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col items-center lg:w-1/3">
+            <div className="relative w-28 h-28 mb-2">
               <svg className="w-full h-full" viewBox="0 0 36 36">
                 <circle
                   stroke="currentColor"
@@ -89,43 +84,40 @@ export default function AnalysisPage() {
                 {data.match_percentage}%
               </div>
             </div>
-            <p className="text-sm text-gray-800 font-medium">Match Score</p>
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-sm text-gray-800 font-medium mt-1">Match Score</p>
+            <p className="text-xs text-gray-500 text-center mt-1">
               Resume matches {data.match_percentage}% of job requirements
             </p>
           </div>
 
-
-          <div className="md:w-2/3">
+          <div className="lg:w-2/3">
             <h3 className="font-semibold text-gray-800 mb-2">Key Recommendations</h3>
-            <ul className="text-sm text-gray-700 space-y-1">
+            <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
               {data.suggestions.map((s, i) => (
-                <li key={i}>➕ {s}</li>
+                <li key={i}>{s}</li>
               ))}
             </ul>
           </div>
         </section>
 
-        
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm my-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm my-6">
           <div>
-            <h4 className="font-medium text-gray-800 mb-1">Missing Keywords</h4>
-            <div className="flex flex-wrap gap-2 text-gray-600">
+            <h4 className="font-medium text-gray-800 mb-2">Missing Keywords</h4>
+            <div className="flex flex-wrap gap-2">
               {data.missing_keywords.map((kw, i) => (
-                <span key={i} className="bg-gray-100 px-2 py-1 rounded-md">{kw}</span>
+                <span key={i} className="bg-gray-100 px-2 py-1 rounded text-gray-600">{kw}</span>
               ))}
             </div>
           </div>
           <div>
-            <h4 className="font-medium text-gray-800 mb-1">Matched Keywords</h4>
-            <div className="flex flex-wrap gap-2 text-gray-600">
+            <h4 className="font-medium text-gray-800 mb-2">Matched Keywords</h4>
+            <div className="flex flex-wrap gap-2">
               {data.matched_keywords.map((kw, i) => (
-                <span key={i} className="bg-green-100 px-2 py-1 rounded-md">{kw}</span>
+                <span key={i} className="bg-green-100 px-2 py-1 rounded text-gray-600">{kw}</span>
               ))}
             </div>
           </div>
         </section>
-
 
         <footer>
           <h4 className="font-medium text-gray-800 mb-2">Overall Feedback</h4>
