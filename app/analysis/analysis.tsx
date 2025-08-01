@@ -54,7 +54,7 @@ export default function AnalysisPage() {
         }`}
       >
         <header className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center">🔍 Jay Patel — Resume Match Analysis</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 text-center">🔍 {data.name} — Resume Match Analysis</h2>
           <p className="text-gray-500 text-sm text-center">Personalized insights based on your uploaded resume and job description</p>
         </header>
 
