@@ -17,7 +17,7 @@
 
 ## 🚀 Live Demo
 
-🌐 **Hosted Link:** [https://resume-match.vercel.app](https://resume-match-five.vercel.app/)
+🌐 **Hosted Link:** [https://resume-match-five.vercel.app/](https://resume-match-five.vercel.app/)
 
 ---
 
